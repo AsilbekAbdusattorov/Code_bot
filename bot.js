@@ -1,12 +1,13 @@
 const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require('mongoose');
+require('dotenv').config(); // .env faylini yuklash
 
 // Bot token
-const token = '7944728138:AAFJlHCnFJHJ-v0E0uTYR6VBo9NJRr1yGwE'; // Your bot token
+const token = process.env.BOT_TOKEN; // .env faylidan o'qiladi
 const bot = new TelegramBot(token, { polling: true });
 
 // MongoDB connection
-const mongoURI = 'mongodb+srv://Asilbek2007:Asilbek2007@cluster0.1pikj.mongodb.net/bot?retryWrites=true&w=majority&appName=Cluster0'; // MongoDB connection URI
+const mongoURI = process.env.MONGO_URI; // .env faylidan o'qiladi
 mongoose.connect(mongoURI)
     .then(() => {
         console.log('Connected to MongoDB.');
@@ -25,15 +26,15 @@ const postSchema = new mongoose.Schema({
 const Post = mongoose.model('Post', postSchema);
 
 // Admin chat ID
-const adminChatId = '6034280125'; // Admin chat ID
+const adminChatId = process.env.ADMIN_CHAT_ID; // .env faylidan o'qiladi
 
 // Channel(s) usernames
 const channels = [
-    { name: 'AsilbekCode', username: '@AsilbekCode' }, // Channel 1
+    { name: 'AsilbekCode', username: process.env.CHANNEL_USERNAME }, // .env faylidan o'qiladi
 ];
 
 // Instagram profile link
-const instagramProfile = 'https://www.instagram.com/asilbekcode?igsh=MWQybWVjZm9ia3cwcw=='; // Your Instagram profile
+const instagramProfile = process.env.INSTAGRAM_PROFILE; // .env faylidan o'qiladi
 
 // Admin post creation state
 let isAdminCreatingPost = false;
